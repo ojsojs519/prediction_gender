@@ -1,7 +1,0 @@
-fastapi
-uvicorn
-torch
-transformers
-python-multipart
-pydantic
-scikit-learn
