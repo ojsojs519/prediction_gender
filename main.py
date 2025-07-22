@@ -5,15 +5,14 @@ import torch
 
 app = FastAPI()
 
-# ⭐️ 이 부분을 수정했습니다!
-# 로컬 폴더 대신 Hugging Face Hub의 저장소 이름을 적어줍니다.
-# "본인HuggingFace아이디/모델저장소이름" 형식입니다.
+# Hugging Face 저장소 이름
 MODEL_NAME = "ojs595/gen_predict" 
+# Render에 등록한 환경 변수에서 토큰 값을 가져옵니다.
+HF_TOKEN = os.getenv("HF_TOKEN")
 
-# 아래 코드는 그대로 유지됩니다.
-# from_pretrained 함수가 알아서 Hugging Face Hub에서 모델을 다운로드합니다.
-tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME)
+# ⭐️ from_pretrained 함수에 token 인자를 추가합니다.
+tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, token=HF_TOKEN)
+model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, token=HF_TOKEN)
 device = torch.device("cpu")
 model.to(device)
 
